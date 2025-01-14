@@ -2,31 +2,32 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="/Users/user/Desktop/demo">
+
+        <parameter name="browser" value="safari"/>
+
+        <groups>
+            <run>
+                <include name="UI"/>
+            </run>
+        </groups>
+
         <classes>
             <class name="com.example.demo.DemoApplicationTests">
                 <methods>
                     <include name="contextLoads"/>
                 </methods>
             </class>
-            <class name="com.example.demo.controller.ProductControllerTest">
-                <methods>
-                    <include name="testGetAllProducts"/>
-                    <include name="testGetProductById"/>
-                    <include name="testGetProductByIdNotFound"/>
-                    <include name="testAddProduct"/>
-                    <include name="testUpdateProduct"/>
-                    <include name="testDeleteProduct"/>
-                    <include name="testDeleteProductNotFound"/>
-                </methods>
-            </class>
+
             <class name="com.example.demo.demo.Calculator">
                 <methods>
                     <include name="testAdd"/>
-                    <include name="testSubtrackt"/>
+                    <include name="testSubtract"/>
                     <include name="testMultiply"/>
                     <include name="testDivide"/>
                 </methods>
             </class>
+            <class name="com.example.demo.demo.ParameterizedTests"/>
+            <class name="com.example.demo.demo.GroupsTests"/>
         </classes>
     </test>
 </suite>
