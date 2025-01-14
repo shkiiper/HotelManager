@@ -60,5 +60,5 @@ public class DemoApplication implements CommandLineRunner {
 			e.printStackTrace();
 		}
 	}
-}
 //test git commands
+}
