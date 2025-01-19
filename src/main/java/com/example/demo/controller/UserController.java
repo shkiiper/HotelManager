@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 
-public class mUserController {
+public class UserController {
 
 
 
