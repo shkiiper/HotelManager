@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.rest_controller;
 
 import com.example.demo.entity.Booking;
 import com.example.demo.service.BookingService;
@@ -9,11 +9,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bookings")
-public class BookingController {
+public class BookingRestController {
 
     private final BookingService bookingService;
 
-    public BookingController(BookingService bookingService) {
+    public BookingRestController(BookingService bookingService) {
         this.bookingService = bookingService;
     }
 

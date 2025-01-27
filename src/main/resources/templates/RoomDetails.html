@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Детали комнаты</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 50%; margin: 50px auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        h1 { text-align: center; }
+        p { font-size: 18px; line-height: 1.6; }
+        a { display: block; text-align: center; margin-top: 20px; color: #007BFF; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Комната <span th:text="${room.number}"></span></h1>
+    <p>Тип: <span th:text="${room.type}"></span></p>
+    <p>Цена: <span th:text="${room.price}"></span></p>
+    <p>Доступность: <span th:text="${room.available ? 'Доступно' : 'Недоступно'}"></span></p>
+    <a href="/rooms">Вернуться к списку комнат</a>
+</div>
+</body>
+</html>

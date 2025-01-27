@@ -1,15 +1,15 @@
-// RoomController.java
 package com.example.demo.controller;
 
 import com.example.demo.entity.Room;
 import com.example.demo.service.RoomService;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/rooms")
+@Controller
+@RequestMapping("/rooms")
 public class RoomController {
 
     private final RoomService roomService;
@@ -19,31 +19,50 @@ public class RoomController {
     }
 
     @GetMapping
-    public List<Room> getAllRooms() {
-        return roomService.getAllRooms();
+    public String getAllRooms(Model model) {
+        List<Room> rooms = roomService.getAllRooms();
+        model.addAttribute("rooms", rooms);
+        return "RoomList";
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Room> getRoomById(@PathVariable Long id) {
+    public String getRoomById(@PathVariable Long id, Model model) {
         Room room = roomService.getRoomById(id);
-        return ResponseEntity.ok(room);
+        model.addAttribute("room", room);
+        return "RoomDetails";
     }
+
+    @GetMapping("/new")
+    public String createRoomForm(Model model) {
+        model.addAttribute("room", new Room());
+        return "RoomForm";
+    }
+
 
     @PostMapping
-    public ResponseEntity<Room> createRoom(@RequestBody Room room) {
-        Room newRoom = roomService.createRoom(room);
-        return ResponseEntity.ok(newRoom);
+    public String createRoom(@ModelAttribute Room room) {
+        roomService.createRoom(room);
+        return "redirect:/rooms";
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Room> updateRoom(@PathVariable Long id, @RequestBody Room roomDetails) {
-        Room updatedRoom = roomService.updateRoom(id, roomDetails);
-        return ResponseEntity.ok(updatedRoom);
+    @GetMapping("/{id}/edit")
+    public String updateRoomForm(@PathVariable Long id, Model model) {
+        Room room = roomService.getRoomById(id);
+        model.addAttribute("room", room);
+        return "RoomForm";
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRoom(@PathVariable Long id) {
+    @PostMapping("/{id}")
+    public String updateRoom(@PathVariable Long id, @ModelAttribute Room roomDetails) {
+        roomDetails.setId(id);
+        roomService.updateRoom(id, roomDetails);
+        return "redirect:/rooms";
+    }
+
+
+    @PostMapping("/{id}/delete")
+    public String deleteRoom(@PathVariable Long id) {
         roomService.deleteRoom(id);
-        return ResponseEntity.noContent().build();
+        return "redirect:/rooms";
     }
 }
