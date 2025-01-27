@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма комнаты</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #007BFF;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Заголовок -->
+    <h1 th:text="${room.id == null ? 'Создание комнаты' : 'Редактирование комнаты'}"></h1>
+    <form th:action="@{/rooms/{id}(id=${room.id})}" method="post">
+        <!-- Скрытое поле для метода PUT -->
+        <input type="hidden" name="_method" value="PUT">
+
+        <!-- Номер комнаты -->
+        <label for="number">Номер комнаты</label>
+        <input type="text" id="number" name="number" th:value="${room != null ? room.number : ''}" placeholder="Введите номер комнаты" required>
+
+        <!-- Тип комнаты -->
+        <label for="type">Тип комнаты</label>
+        <input type="text" id="type" name="type" th:value="${room != null ? room.type : ''}" placeholder="Введите тип комнаты" required>
+
+        <!-- Цена -->
+        <label for="price">Цена</label>
+        <input type="number" id="price" name="price" th:value="${room != null ? room.price : ''}" placeholder="Введите цену" required>
+
+        <!-- Доступность -->
+        <label for="available">Доступность</label>
+        <select id="available" name="available">
+            <option th:value="true" th:selected="${room != null and room.available != null and room.available}">Доступно</option>
+            <option th:value="false" th:selected="${room != null and room.available != null and !room.available}">Недоступно</option>
+        </select>
+
+        <!-- Кнопка отправки -->
+        <button type="submit">Сохранить</button>
+    </form>
+
+
+    <!-- Ссылка на список комнат -->
+    <a href="/rooms" class="back-link">Вернуться к списку комнат</a>
+</div>
+</body>
+</html>

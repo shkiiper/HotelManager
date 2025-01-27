@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.rest_controller;
 
 import com.example.demo.entity.Payment;
 import com.example.demo.service.PaymentService;
@@ -9,11 +9,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/payments")
-public class PaymentController {
+public class PaymentRestController {
 
     private final PaymentService paymentService;
 
-    public PaymentController(PaymentService paymentService) {
+    public PaymentRestController(PaymentService paymentService) {
         this.paymentService = paymentService;
     }
 
